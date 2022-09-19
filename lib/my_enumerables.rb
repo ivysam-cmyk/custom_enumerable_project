@@ -1,5 +1,30 @@
 module Enumerable
   # Your code goes here
+    def my_each_with_index
+      index = 0
+      while index < self.length
+        yield(self[index], index)
+        index += 1
+      end
+      return self
+    end
+
+    def my_select
+      #takes each value of array
+      index = 0
+      return_array = []
+      while index < self.length
+        #passing the value into the block 
+        #how to check if it satisfies condition in the block? check return value of the block.
+        if ((yield self[index]) == true)
+          #if it does add it to the array being returned
+          return_array << self[index]
+        end
+        index += 1
+      end
+      return return_array
+      #if it does not, do nothing
+    end
 end
 
 # You will first have to define my_each
@@ -8,4 +33,13 @@ end
 # to this method
 class Array
   # Define my_each here
+  def my_each
+    index = 0
+    while index < self.length
+      yield (self[index]) #executes the block for each element  
+      index +=1 
+    end
+    return self # should return the original array no matter the contents of the block
+  end
+
 end
