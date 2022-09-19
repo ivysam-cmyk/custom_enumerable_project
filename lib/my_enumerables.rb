@@ -25,6 +25,26 @@ module Enumerable
       return return_array
       #if it does not, do nothing
     end
+
+    def my_all?
+      index = 0
+      array = []
+      while index < self.length
+        # check the condition for every element in array.
+        if ((yield self[index]) == false)
+          return false
+        else
+          array << self[index]
+        end 
+        index += 1
+      end
+      # if all the values return true length of this array is the same as length of the original array 
+      if array.length == self.length
+        return true
+      end
+    end
+
+    def 
 end
 
 # You will first have to define my_each
