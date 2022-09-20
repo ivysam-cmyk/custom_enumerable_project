@@ -38,13 +38,90 @@ module Enumerable
         end 
         index += 1
       end
-      # if all the values return true length of this array is the same as length of the original array 
+      # if all the values return true, length of this array is the same as length of the original array 
       if array.length == self.length
         return true
       end
     end
 
-    def 
+    def my_any?
+      #check for each element
+      index = 0
+      true_array = []
+      while index < self.length
+        if ((yield self[index]) == true)
+          true_array << self[index]
+        end
+        index += 1
+      end
+      if true_array.length > 0 #if there is a single true element it will return true
+        return true
+      else
+        return false #if the length is 0 then it returns false
+      end
+    end
+
+    def my_none? #opposite of all.
+      index = 0
+      array = []
+      while index < self.length
+        # check the condition for every element in array.
+        if ((yield self[index]) == true)
+          return false
+        else
+          array << self[index] #the false array
+        end 
+        index += 1
+      end
+      # if all the values return false, length of this array is the same as length of the original array 
+      if array.length == self.length
+        return true 
+      end
+    end
+
+    def my_count
+      index = 0
+      count_array = []
+      if block_given?
+        while index < self.length
+          if (yield self[index]) == true
+            count_array << self[index]
+          end
+          index += 1
+        end
+        return count_array.length
+      else #block not given
+        return self.length
+      end
+    end
+
+    def my_map
+      #take each value 
+      index = 0
+      map_array = []
+      while index < self.length
+        # pass to block
+        # get the return value from the block
+        # append to an array
+        map_array << (yield self[index])
+        index += 1
+      end
+      return map_array
+      # return the array
+    end
+
+    def my_inject(init_val)
+      #take each value 
+      index = 0
+      acc = init_val
+      while index < self.length
+        #accumulator is the first value
+        #pass the accumulator and the each value to the block
+        acc = yield(acc, self[index])  #this returns the new acc       
+        index += 1
+      end
+      return acc
+    end
 end
 
 # You will first have to define my_each
